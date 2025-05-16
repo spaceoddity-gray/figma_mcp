@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Artist Mission Ranking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "SF Pro Text", "Apple SD Gothic Neo", "SUIT", sans-serif;
+      }
+      /* Figma gradient: fill_KNL45J (hex: '#280F33' to hex: '#5627CC') */
+      .gradient-figma-bg {
+        background: linear-gradient(to bottom, #280f33, #5627cc);
+      }
+      /* Custom text selection color if needed for better visibility on dark backgrounds */
+      ::selection {
+        background-color: #8a5dff; /* A lighter purple for selection */
+        color: white;
+      }
+    </style>
+  </head>
+  <body
+    class="gradient-figma-bg text-white overflow-y-auto h-screen flex flex-col"
+  >
+    <!-- Main container for the screen -->
+    <div class="w-full max-w-md mx-auto h-full flex flex-col relative">
+      <!-- Status Bar -->
+      <div
+        id="status-bar"
+        class="px-6 pt-3 pb-2 flex justify-between items-center z-10"
+      >
+        <div class="text-sm font-semibold">9:41</div>
+        <div class="flex items-center space-x-1">
+          <img
+            src="public/images/icon_mobile_signal.svg"
+            alt="Mobile Signal"
+            class="h-3 w-auto"
+          />
+          <img
+            src="public/images/icon_wifi.svg"
+            alt="Wifi"
+            class="h-3 w-auto"
+          />
+          <div class="text-xs">100%</div>
+          <!-- Battery text, icon needs specific Figma asset -->
+        </div>
+      </div>
+      <!-- Notch area (visual representation) -->
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-black rounded-b-2xl z-20 overflow-hidden"
+      >
+        <img
+          src="public/images/icon_notch.svg"
+          alt="Notch"
+          class="w-full h-full object-cover opacity-50"
+        />
+      </div>
+
+      <!-- Sub App Bar -->
+      <div
+        id="sub-app-bar"
+        class="bg-[#1F1F1F] sticky top-0 z-10 px-4 py-3 flex items-center justify-between"
+      >
+        <button aria-label="Go back">
+          <img
+            src="public/images/icon_back_arrow.svg"
+            alt="Back"
+            class="h-6 w-6"
+          />
+        </button>
+        <div class="text-xl font-bold">랭킹</div>
+        <button
+          class="bg-[#662FFF] text-xs text-[#EFE9FF] px-3 py-1.5 rounded-full flex items-center space-x-1"
+          aria-label="Select month"
+        >
+          <span>11월</span>
+          <!-- Dropdown arrow icon would go here -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-3 w-3 fill-current"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="flex-grow overflow-y-auto px-4 pt-4 pb-20 space-y-5">
+        <!-- Added pb-20 for home indicator -->
+
+        <!-- Top 3 Artists - Simplified representation -->
+        <div
+          id="top-3-artists"
+          class="flex justify-around items-end text-center mb-6"
+        >
+          <!-- 2nd Place -->
+          <div class="flex flex-col items-center">
+            <img
+              src="public/images/rank_2_artist.png"
+              alt="Rank 2 Artist"
+              class="w-20 h-20 rounded-full border-2 border-[#D7D5DB] object-cover mb-1"
+            />
+            <div class="text-sm font-semibold">세븐틴</div>
+            <div class="text-xs text-gray-400">2</div>
+          </div>
+          <!-- 1st Place -->
+          <div class="flex flex-col items-center">
+            <img
+              src="public/images/rank_1_artist.png"
+              alt="Rank 1 Artist"
+              class="w-24 h-24 rounded-full border-2 border-[#F1C04B] object-cover mb-1"
+            />
+            <img
+              src="public/images/icon_crown_rank1.svg"
+              alt="Crown"
+              class="h-5 w-auto -mt-3 mb-1"
+            />
+            <div class="text-base font-bold">아이브</div>
+            <div class="text-sm text-yellow-400">1</div>
+          </div>
+          <!-- 3rd Place -->
+          <div class="flex flex-col items-center">
+            <img
+              src="public/images/rank_3_artist.png"
+              alt="Rank 3 Artist"
+              class="w-20 h-20 rounded-full border-2 border-[#BB7A4D] object-cover mb-1"
+            />
+            <div class="text-sm font-semibold">스트레이키즈</div>
+            <div class="text-xs text-gray-400">3</div>
+          </div>
+        </div>
+
+        <!-- Artist List -->
+        <div id="artist-list" class="space-y-3">
+          <!-- List Item 1 (투모로우바이투게더) -->
+          <div
+            class="bg-white/10 p-3 rounded-lg flex items-center justify-between"
+          >
+            <div class="flex items-center space-x-3">
+              <div class="flex flex-col items-center w-10">
+                <div class="text-lg font-extrabold">4</div>
+                <div class="flex items-center text-red-500 text-xs">
+                  <img
+                    src="public/images/icon_arrow_up_red.svg"
+                    class="h-3 w-3 mr-0.5"
+                    alt="Rank up"
+                  />
+                  <span>10</span>
+                </div>
+              </div>
+              <img
+                src="public/images/profile_tomorrow_by_together.png"
+                alt="투모로우바이투게더"
+                class="w-10 h-10 rounded-full object-cover"
+              />
+              <div class="text-sm font-bold">투모로우바이투게더</div>
+            </div>
+            <div
+              class="bg-white/10 text-[#EFE9FF] text-xs px-3 py-1.5 rounded-full flex items-center space-x-1"
+            >
+              <img
+                src="public/images/icon_star.svg"
+                alt="Star"
+                class="h-3.5 w-3.5"
+              />
+              <span>888,888</span>
+            </div>
+          </div>
+
+          <!-- List Item 2 (에스파) -->
+          <div
+            class="bg-white/10 p-3 rounded-lg flex items-center justify-between"
+          >
+            <div class="flex items-center space-x-3">
+              <div class="flex flex-col items-center w-10">
+                <div class="text-lg font-extrabold">5</div>
+                <div class="flex items-center text-blue-400 text-xs">
+                  <img
+                    src="public/images/icon_arrow_up_blue.svg"
+                    class="h-3 w-3 mr-0.5"
+                    alt="Rank up"
+                  />
+                  <span>10</span>
+                </div>
+              </div>
+              <img
+                src="public/images/profile_aespa.png"
+                alt="에스파"
+                class="w-10 h-10 rounded-full object-cover"
+              />
+              <div class="text-sm font-bold">에스파</div>
+            </div>
+            <div
+              class="bg-white/10 text-[#EFE9FF] text-xs px-3 py-1.5 rounded-full flex items-center space-x-1"
+            >
+              <img
+                src="public/images/icon_star.svg"
+                alt="Star"
+                class="h-3.5 w-3.5"
+              />
+              <span>888,888</span>
+            </div>
+          </div>
+
+          <!-- List Item 3 (뉴진스) -->
+          <div
+            class="bg-white/10 p-3 rounded-lg flex items-center justify-between"
+          >
+            <div class="flex items-center space-x-3">
+              <div class="flex flex-col items-center w-10">
+                <div class="text-lg font-extrabold">6</div>
+                <div class="flex items-center text-gray-400 text-xs">
+                  <img
+                    src="public/images/icon_remove_gray.svg"
+                    class="h-3 w-3 mr-0.5"
+                    alt="Rank same"
+                  />
+                  <!-- Number can be added if needed -->
+                </div>
+              </div>
+              <img
+                src="public/images/profile_newjeans.png"
+                alt="뉴진스"
+                class="w-10 h-10 rounded-full object-cover"
+              />
+              <div class="text-sm font-bold">뉴진스</div>
+            </div>
+            <div
+              class="bg-white/10 text-[#EFE9FF] text-xs px-3 py-1.5 rounded-full flex items-center space-x-1"
+            >
+              <img
+                src="public/images/icon_star.svg"
+                alt="Star"
+                class="h-3.5 w-3.5"
+              />
+              <span>888,888</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loudspeaker announcement bar -->
+        <div
+          class="bg-[#371766] border border-[#5627CC] rounded-xl p-3 flex items-center space-x-3 my-6 shadow-lg"
+        >
+          <div class="bg-white/10 p-1.5 rounded-full">
+            <!-- Loudspeaker icon would go here, using a placeholder -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-[#CFBCFF]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.146-5.48a1.76 1.76 0 010-1.184l2.146-5.48A1.76 1.76 0 0111 5.882z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.9908 14.2912C17.3744 13.3952 17.9736 11.7689 17.7898 10.1498C17.6059 8.53078 16.6695 7.15659 15.2859 6.4955C15.0899 6.40664 14.8793 6.36234 14.667 6.363C14.6131 6.363 14.5598 6.364 14.5059 6.366C14.0168 6.382 13.5718 6.161 13.2859 5.782C12.9998 5.404 12.9428 4.909 13.1489 4.49C13.3548 4.071 13.7998 3.803 14.2889 3.762C14.3537 3.75603 14.419 3.75305 14.4849 3.75305C16.6649 3.75305 18.6018 4.81505 19.7089 6.64405C20.8158 8.47405 20.9018 10.7681 19.9309 12.7721C18.9598 14.7761 17.0759 16.0401 14.8979 16.2311C14.8262 16.2377 14.7542 16.2411 14.6829 16.2411C14.1839 16.2411 13.7299 16.0121 13.4399 15.6221C13.1498 15.2321 13.0918 14.7271 13.2999 14.3011C13.5078 13.8751 13.9588 13.6011 14.4579 13.5811L14.667 13.576C15.113 13.571 15.5578 13.7312 15.9017 14.0312"
+              />
+            </svg>
+          </div>
+          <div class="text-xs">
+            <p class="font-semibold">11월 둘째 주 랭킹 집계가 완료되었어요!</p>
+            <p class="text-white/70">지금 바로 확인해보세요!</p>
+          </div>
+        </div>
+      </div>
+      <!-- End Content Area -->
+
+      <!-- My Rank Bar (sticky at the bottom, above home indicator) -->
+      <div
+        id="my-rank-bar"
+        class="bg-[#2D1060] sticky bottom-0 left-0 right-0 mx-auto w-full max-w-md px-4 py-3 rounded-t-2xl flex items-center justify-between z-10"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="flex flex-col items-center w-10">
+            <div class="text-lg font-extrabold">13</div>
+            <div class="flex items-center text-red-500 text-xs">
+              <img
+                src="public/images/icon_arrow_up_red.svg"
+                class="h-3 w-3 mr-0.5"
+                alt="Rank up"
+              />
+              <span>10</span>
+            </div>
+          </div>
+          <img
+            src="public/images/my_rank_artist.png"
+            alt="엔믹스"
+            class="w-10 h-10 rounded-full object-cover"
+          />
+          <div class="text-sm font-bold">엔믹스</div>
+        </div>
+        <div
+          class="bg-[#5627CC] text-[#EFE9FF] text-xs px-3 py-1.5 rounded-full flex items-center space-x-1"
+        >
+          <img
+            src="public/images/icon_star.svg"
+            alt="Star"
+            class="h-3.5 w-3.5"
+          />
+          <span>888,888</span>
+        </div>
+      </div>
+
+      <!-- Home Indicator -->
+      <div
+        id="home-indicator"
+        class="sticky bottom-0 left-0 right-0 mx-auto w-full max-w-md h-8 flex justify-center items-end pb-2 z-0"
+      >
+        <div class="w-32 h-1.5 bg-white/50 rounded-full"></div>
+      </div>
+    </div>
+    <!-- End Main container -->
+  </body>
+</html>
